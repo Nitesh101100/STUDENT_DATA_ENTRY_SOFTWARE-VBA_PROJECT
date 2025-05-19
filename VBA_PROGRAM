@@ -1,0 +1,64 @@
+Sub pro_grade()
+Range("A3").Value = "Name"
+Range("B3").Value = "Hindi"
+Range("C3").Value = "Math"
+Range("D3").Value = "Phy"
+Range("E3").Value = "Che"
+Range("F3").Value = "Eng"
+Range("G3").Value = "Total"
+Range("H3").Value = "Percentage"
+Range("I3").Value = "Grade"
+Range("A3:I3").Font.Bold = True
+Range("A3:I3").Font.ColorIndex = 2
+Range("A3:I3").Interior.ColorIndex = 5
+Range("A3:I3").Borders.Weight = 2
+Range("A3:I3").Columns.AutoFit
+ 
+ Dim question As String, StudentName As String, Grade As String
+ Dim erow As Long, marks As Long, Total As Long, num As Long
+ question = "y"
+ Do While question = "y"
+ erow = Sheet1.Cells(Rows.Count, 1).End(xlUp).Offset(1, 0).Row
+ question = Application.InputBox("Do you wish to enter data? Type 'N' to End program or 'Y' to Continue", "Question")
+    If question = "n" Or question = "no" Or question = "False" Then End
+ StudentName = Application.InputBox("Enter the Student Name", "Student Name")
+ Cells(erow, 1).Value = StudentName
+marks = 0
+ Total = 0
+ For num = 2 To 6
+ marks = Application.InputBox("Enter the Student Marks of 5 subjects", "Marks")
+ Cells(erow, num).Value = marks
+MsgBox "You entered marks " & num - 1 & " of 5 and " & 5 - (num - 1) & " Remain"
+ Total = Total + marks
+ Cells(erow, 7).Value = Total
+ Dim percentage As Single
+ percentage = 0
+ percentage = Total / 5
+ Cells(erow, 8).Value = percentage
+ If percentage >= 90 Then
+ Grade = "A"
+ Cells(erow, 8).Font.Bold = True
+ Cells(erow, 9).Font.ColorIndex = 4
+  ElseIf percentage >= 80 Then
+ Grade = "B"
+ Cells(erow, 9).Font.ColorIndex = 5
+ ElseIf percentage >= 70 Then
+ Grade = "C"
+ElseIf percentage >= 60 Then
+ Grade = "D"
+Else
+ Grade = "NA"
+ Cells(erow, 9).Font.ColorIndex = 3
+ End If
+ Cells(erow, 9).Value = Grade
+ 
+ Next num
+ For bor = 1 To 9
+ Cells(erow, bor).Borders.Weight = 2
+ Next bor
+Loop
+
+
+
+
+End Sub
